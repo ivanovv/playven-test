@@ -1,0 +1,16 @@
+class ProtectedController < ApplicationController
+  before_action :authenticate_user
+
+  def index
+    render json: { content: 'protected content' }
+  end
+
+  def admin
+    if current_user.is_admin
+      render json: { content: 'Super protected content' }
+    else
+      head :forbidden
+    end
+  end
+
+end
