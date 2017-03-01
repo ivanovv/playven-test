@@ -1,11 +1,9 @@
 class User < ApplicationRecord
   has_secure_password
   validates :email, uniqueness: true
+  before_save :downcase_email
 
-  def to_token_payload
-    {
-      sub: self.id,
-      scopes: self.is_admin? ? ["ADMIN"] : []
-    }
+  def downcase_email
+    self.email = self.email.strip.downcase
   end
 end
