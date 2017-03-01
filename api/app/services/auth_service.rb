@@ -16,7 +16,7 @@ class AuthService
     def user_payload(user)
       {
         sub: user.id,
-        scopes: user.is_admin? ? ["ADMIN"] : []
+        scopes: user.is_admin? ? ["ADMIN"] : [],
         exp: 30.seconds.from_now.to_i
       }
     end
