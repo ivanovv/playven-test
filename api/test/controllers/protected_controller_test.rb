@@ -8,8 +8,9 @@ class ProtectedControllerTest < ActionController::TestCase
 
   test 'protected action returns 200 when there is a token present' do
     user = User.create(name: 'John', email: 'j@example.com', password: 'sekret')
-    token = Knock::AuthToken.new(payload: { sub: user.id }).token
+    token = AuthService.user_to_token(user)
     @request.headers['Authorization'] = token
+    
     get :index
     assert_response :success
   end
