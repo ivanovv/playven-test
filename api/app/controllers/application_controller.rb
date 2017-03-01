@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
   end
 
   def payload
-    raw_token = request.authorization.split(' ').last
+    raw_token = (request.authorization || '').split(' ').last
     AuthService.decode(raw_token)
   end
 
